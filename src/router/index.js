@@ -11,13 +11,13 @@ const routes = [
         path: "/",
         name: "Login",
         component: Login,
-        // beforeEnter:(to, from, next) => {
-        //     if(localStorage.access_token && to.name === 'Login') {
-        //         next({ name: 'DashBoard' })
-        //     } else {
-        //         next()
-        //     }
-        // }
+        beforeEnter: (to, from, next) => {
+            if (localStorage.access_token && to.name === "Login") {
+                next({ name: "DashBoard" })
+            } else {
+                next()
+            }
+        },
     },
     {
         path: "/dashboard",
