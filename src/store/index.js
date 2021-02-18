@@ -7,26 +7,28 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     state: {
         rooms: [],
-        select: ''
+        select: "",
     },
     mutations: {
-        setRooms(state, payload) {
+        setRoom(state, payload) {
             state.rooms = payload
         },
         setSelect(state, payload) {
             state.select = payload
-        }
+        },
     },
     actions: {
-        login(context, username) {
+        login(context, name) {
             return axios({
-                url: "/login",
+                url: "/",
                 method: "POST",
                 data: {
-                    username,
+                    name,
                 },
             })
-                .then(({ data }) => (localStorage.access_token = data.access_token))
+                .then(({ data }) => {
+                    localStorage.access_token = data.access_token
+                })
                 .catch((err) => console.log(err.response.data.error))
         },
         fetchRooms(context) {
