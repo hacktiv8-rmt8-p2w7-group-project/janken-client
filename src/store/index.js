@@ -7,11 +7,15 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     state: {
         rooms: [],
+        select: ''
     },
     mutations: {
         setRooms(state, payload) {
             state.rooms = payload
         },
+        setSelect(state, payload) {
+            state.select = payload
+        }
     },
     actions: {
         login(context, username) {
@@ -54,7 +58,9 @@ export default new Vuex.Store({
                 header: {
                     access_token: localStorage.access_token,
                 },
-            }).then(() => context.dispatch("fetchRooms"))
+            })
+                .then(() => context.dispatch("fetchRooms"))
+                .catch((err) => console.log(err.response.data.error))
         },
     },
     modules: {},
