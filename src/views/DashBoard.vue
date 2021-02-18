@@ -7,7 +7,7 @@
         </div>
         <b-container>
             <div class="d-flex row justify-content-center">
-                <RoomCard />
+                <RoomCard v-for="room in rooms" :key="room.id" :room="room" />
             </div>
         </b-container>
     </div>
