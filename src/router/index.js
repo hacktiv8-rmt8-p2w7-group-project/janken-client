@@ -1,6 +1,5 @@
 import Vue from "vue"
 import VueRouter from "vue-router"
-import Home from "../views/Home.vue"
 import DashBoard from "../views/DashBoard.vue"
 import Login from "../views/Login.vue"
 import GameRoom from "../views/GameRoom.vue"
@@ -10,13 +9,15 @@ Vue.use(VueRouter)
 const routes = [
     {
         path: "/",
-        name: "Home",
-        component: Home,
-    },
-    {
-        path: "/login",
         name: "Login",
         component: Login,
+        // beforeEnter:(to, from, next) => {
+        //     if(localStorage.access_token && to.name === 'Login') {
+        //         next({ name: 'DashBoard' })
+        //     } else {
+        //         next()
+        //     }
+        // }
     },
     {
         path: "/dashboard",
