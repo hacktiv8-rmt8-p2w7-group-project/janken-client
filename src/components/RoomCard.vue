@@ -14,7 +14,7 @@
                     <p>Players in the room : 2</p>
                 </b-card-text>
                 <template #footer>
-                    <b-button variant="info" class="m-2" @click="joinRoom"
+                    <b-button variant="info" class="m-2" @click.prevent="joinRoom"
                         ><i class="fas fa-sign-in-alt"></i> Join Room</b-button
                     >
                     <b-button variant="danger" class="m-2" @click="deleteRoom"
@@ -29,11 +29,13 @@
 <script>
 export default {
     name: "RoomCard",
-    props: {},
+    props: ['room'],
     components: {},
     methods: {
         joinRoom() {
-            this.$router.push({ name: "GameRoom", params: this.game.id }); // randomize room? use room id
+            console.log({ room: this.room });
+            this.$store.dispatch('joinRoom', this.room.id)
+            this.$router.push(`/dashboard/${this.room.id}`); // randomize room? use room id
         },
         deleteRoom() {
             this.$store.dispatch("deleteRoom", this.game.id);

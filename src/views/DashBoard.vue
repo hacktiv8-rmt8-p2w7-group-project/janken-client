@@ -1,7 +1,7 @@
 <template>
     <div>
         <div>
-            <b-button variant="info" class="m-2" @click="createRoom"
+            <b-button variant="info" class="m-2" @click.prevent="createRoom"
                 ><i class="fas fa-sign-in-alt"></i> Create Room</b-button
             >
         </div>

@@ -44,7 +44,7 @@ import PlayerCard from "../components/PlayerCard.vue";
 
 export default {
     name: "GameRoom",
-    props: {},
+    props: ['gameId'],
     components: {
         PlayerCard,
     },
@@ -61,6 +61,10 @@ export default {
             this.$store.commit('setSelect', value);
         },
     },
+    created () {
+        console.log({game: this.$route.params.gameId});
+        this.$store.dispatch('getRoom', this.$route.params.gameId)
+    }
 };
 </script>
 

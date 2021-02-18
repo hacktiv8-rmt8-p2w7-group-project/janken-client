@@ -1,21 +1,33 @@
 import Vue from "vue"
 import Vuex from "vuex"
 import axios from "../config/axios.js"
+import io from "socket.io-client"
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
+        socket: io.connect('http://localhost:3000'),
         rooms: [],
         select: "",
+        gameRoom: {},
+        user: {}
     },
     mutations: {
         setRoom(state, payload) {
+            console.log({payload});
             state.rooms = payload
         },
         setSelect(state, payload) {
             state.select = payload
         },
+        addRoom(state, room) {
+            console.log({room});
+            state.rooms.push(room)
+        },
+        setGameRoom(state, gameRoom) {
+            state.gameRoom = gameRoom
+        }
     },
     actions: {
         login(context, name) {
@@ -39,7 +51,7 @@ export default new Vuex.Store({
                     access_token: localStorage.access_token,
                 },
             })
-                .then(({ data }) => context.commit("setRoom", data.rooms))
+                .then(({ data }) => context.commit("setRoom", data))
                 .catch((err) => console.log(err.response.data.error))
         },
         createRoom(context) {
@@ -50,8 +62,8 @@ export default new Vuex.Store({
                     access_token: localStorage.access_token,
                 },
             })
-                .then(() => context.dispatch("fetchRooms"))
-                .catch((err) => console.log(err.response.data.error))
+                .then(({data}) => context.commit("addRoom", data))
+                .catch((err) => console.log(err))
         },
         deleteRoom(context, id) {
             axios({
@@ -64,6 +76,24 @@ export default new Vuex.Store({
                 .then(() => context.dispatch("fetchRooms"))
                 .catch((err) => console.log(err.response.data.error))
         },
+        joinRoom(context, user, id) {
+            axios({
+                url: `/rooms/${id}`,
+                method: 'POST',
+                headers: {
+                    access_token: localStorage.access_token,
+                }
+            })
+                .then(({data}) => {
+                    console.log({data});
+                    context.state.socket.emit('joinRooms', id)
+                })
+                .catch(err => {
+                    console.log({err});
+                })
+        },
+
+        
     },
     modules: {},
 })

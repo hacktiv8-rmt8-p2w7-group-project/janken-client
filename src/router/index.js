@@ -28,12 +28,7 @@ const routes = [
         path: "/dashboard/:gameId",
         name: "GameRoom",
         component: GameRoom,
-    },
-    {
-        path: "/dummy",
-        name: "GameRoom",
-        component: GameRoom,
-    },
+    }
 ]
 
 const router = new VueRouter({
