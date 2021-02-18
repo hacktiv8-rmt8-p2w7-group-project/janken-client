@@ -8,10 +8,6 @@
         <b-container>
             <div class="d-flex row justify-content-center">
                 <RoomCard />
-                <RoomCard />
-                <RoomCard />
-                <RoomCard />
-                <RoomCard />
             </div>
         </b-container>
     </div>
